@@ -1,0 +1,10 @@
+Wiki Prompt :
+
+In my website i am posting a details of celebrties could you please provide the details for celebrity name Trisha, i want details in json format and values should be in string for these keys Biography,full_name,nicknames,date_of_birth,age,birthplace,zodiac_sign,nationality,religion,profession,hobbies,height,weight,eye_color,hair_color,school,college,qualification,father,mother,family_,debut_film,famous_moviestv_shows_for,famous_moviestv_shows,upcoming_projects​,awards_&_achievements,relationship_status,net_worth,charge_per_film,brand_endorsements,instagram,facebook,x,imdb,wikipedia,fact1,fact2,fact3 
+
+
+
+
+Movies Promt :
+
+Please provide me a json file with these details about the movie Kaalapani i want data in key value format and keys should same as the names and values should be in string format i provided,title,content,categories,status,language,year,imdb_rating,critic_rating,post_summary,director,writer,music,produced_by,stars,watch_now,trailer,budget_details,box_office,Tagline,movietitle,regions_availability,awards_&_nominations,cinematography,editor,releasedate,production_house,run_time,list_of_platform_availability_,seo_search_question_1,seo_search_answer_1,seo_search_question_2,seo_search_answer_2,seo_search_question_3,seo_search_answer_3 , review_highlights 
