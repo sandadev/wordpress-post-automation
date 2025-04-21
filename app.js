@@ -1,20 +1,38 @@
 globalThis.fetch = fetch;
 const fs = require("fs");
-//const fetch = require("node-fetch");
 
 const WP_BASE_URL = "https://filmock.com/wp-json/wp/v2";
 const WP_ACFBASE_URL = "https://filmock.com/wp-json";
+
 const USERNAME = "nihamconnects";
 const APPLICATION_PASSWORD = "LXSC FOrV VSsM l5bo 93kC ZT2B";
 const AUTH_HEADER = "Basic " + Buffer.from(`${USERNAME}:${APPLICATION_PASSWORD}`).toString("base64");
 
-// Read JSON input file
-const postsData = JSON.parse(fs.readFileSync("input.json", "utf8"));
+// Load input file
+//const postsData = JSON.parse(fs.readFileSync("movie_input.json", "utf8"));
+const postsData = JSON.parse(fs.readFileSync("wiki_input.json", "utf8"));
 
-// Function to create a post
+
+// Category name → ID map (Replace with your actual WordPress category IDs)
+const categoryMap = {
+    "movies": 32, // ✅ Replace with your actual ID
+    "wiki": 34    // ✅ Replace with your actual ID
+};
+
+// Main function to publish all posts
+async function publishAllPosts() {
+    for (let post of postsData) {
+        await createPost(post);
+    }
+}
+
+// Create a post
 async function createPost(post) {
     try {
-        // Create a new post
+        const categoryName = post.category?.toLowerCase();
+        const categoryId = categoryMap[categoryName] || 1; // default to Uncategorized if not mapped
+
+        // Create WordPress post
         let postResponse = await fetch(`${WP_BASE_URL}/posts`, {
             method: "POST",
             headers: {
@@ -25,27 +43,37 @@ async function createPost(post) {
                 title: post.title,
                 content: post.content,
                 status: post.status,
-                date: post.date  // Scheduling post
+                date: post.date,
+                categories: [categoryId]
             })
         });
 
         let postData = await postResponse.json();
-        console.log("Full API Response:", postData); // Log full response to debug
-        console.log(`Post Created (ID: ${postData.id}): ${post.title}`);
 
-        // If post creation is successful, update ACF fields
         if (postData.id) {
-            console.log(`Post Created (ID: ${postData.id}): ${post.title}`);
-            await updateACFFields(postData.id, post.acf_fields);
-        }else {
-            console.error("Error: Post creation failed!", postData);
+            console.log(`✅ Post Created (ID: ${postData.id}): ${post.title}`);
+
+            // Update ACF fields only for 'movies'
+            if (categoryName === "movies") {
+                await updateACFFields(postData.id, post.acf_fields);
+            } 
+            else if (categoryName === "wiki") {
+                //console.log("📦 Wiki ACF fields:", post.acf_fields);
+                await updateACFFields(postData.id, post.acf_fields);
+            }
+            else {
+                console.log(`ℹ️ ACF skipped for category: ${categoryName}`);
+            }
+        } else {
+            console.error("❌ Post creation failed:", postData);
         }
-    } catch (error) {
-        console.error("Error creating post:", error);
+
+    } catch (err) {
+        console.error("❌ Error creating post:", err);
     }
 }
 
-// Function to update ACF fields
+// Update ACF fields
 async function updateACFFields(postId, fields) {
     try {
         let acfResponse = await fetch(`${WP_ACFBASE_URL}/acf/v3/posts/${postId}`, {
@@ -58,16 +86,14 @@ async function updateACFFields(postId, fields) {
         });
 
         let acfData = await acfResponse.json();
-        console.log(`ACF Fields Updated for Post ID: ${postId}`);
-    } catch (error) {
-        console.error("Error updating ACF fields:", error);
-    }
-}
 
-// Loop through each post in the JSON file and create it
-async function publishAllPosts() {
-    for (let post of postsData) {
-        await createPost(post);
+        if (acfData.fields) {
+            console.log(`✅ ACF fields updated for post ID ${postId}`);
+        } else {
+            console.error("❌ Failed to update ACF:", acfData);
+        }
+    } catch (err) {
+        console.error("❌ Error updating ACF fields:", err);
     }
 }
 

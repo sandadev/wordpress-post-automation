@@ -2,7 +2,7 @@
   {
     "title": "Gol Maal",
     "content": "A 1979 Hindi-language comedy film directed by Hrishikesh Mukherjee, revolving around a man's escalating web of lies to secure and maintain his job.",
-    "categories": "",
+    "category": "movies",
     "status": "publish",
     "acf_fields": {
       "language": "Hindi",
@@ -41,7 +41,7 @@
   {
     "title": "The World of Apu",
     "content": "The final installment of Satyajit Ray's acclaimed Apu Trilogy, 'The World of Apu' follows Apu, an unemployed graduate with aspirations of becoming a writer. His life takes an unexpected turn when he is persuaded to marry a stranger, leading to profound personal transformations.",
-    "categories": "",
+    "category": "movies",
     "status": "publish",
     "acf_fields": {
       "language": "Bengali",
@@ -80,7 +80,7 @@
   {
     "title": "3 Idiots",
     "content": "A 2009 Indian Hindi-language coming-of-age comedy-drama film that follows the journey of three engineering students navigating the pressures of academic life, friendship, and personal aspirations.",
-    "categories": "",
+    "category": "movies",
     "status": "publish",
     "acf_fields": {
       "language": "Hindi",
@@ -119,7 +119,7 @@
   {
     "title": "Manichitrathazhu",
     "content": "A 1993 Malayalam-language psychological horror thriller that follows Ganga, a newlywed woman who begins to exhibit strange behaviors after moving into her husband's ancestral mansion, leading to a series of mysterious events.",
-    "categories": "",
+    "category": "movies",
     "status": "publish",
     "acf_fields": {
       "language": "Malayalam",
@@ -158,7 +158,7 @@
   {
     "title": "Charlie",
     "content": "A 2015 Malayalam-language adventure drama film that follows Tessa, a young woman who embarks on a journey to find the elusive artist Charlie, whose sketchbook she discovers in her rented room.",
-    "categories": "",
+    "category": "movies",
     "status": "publish",
     "acf_fields": {
       "language": "Malayalam",
